@@ -39,4 +39,20 @@ public class SavingsAccount extends BankAccount {
         double compoundAmount = getBalance() * Math.pow(1 + compoundRate / 100, times * years);
         return compoundAmount;
     }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public double getMaxWithdrawalLimit() {
+        return maxWithdrawalLimit;
+    }
+
+    public void setMaxWithdrawalLimit(double maxWithdrawalLimit) {
+        this.maxWithdrawalLimit = maxWithdrawalLimit;
+    }
 }
