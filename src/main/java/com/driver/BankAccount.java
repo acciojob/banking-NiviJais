@@ -1,5 +1,7 @@
 package com.driver;
 
+import java.util.Random;
+
 public class BankAccount {
 
     private String name;
@@ -17,21 +19,23 @@ public class BankAccount {
         // Generate account number having given number of 'digits' such that the sum of digits is equal to 'sum'
         // If it is not possible, throw "Account Number can not be generated" exception
 
-        if (digits <= 0) {
-            throw new IllegalArgumentException("Number of digits must be greater than 0");
+        if (digits <= 0 || sum < 0 || sum > 9 * digits) {
+            throw new Exception("Invalid input parameters");
         }
 
+        Random random = new Random();
         StringBuilder accountNumber = new StringBuilder();
-        int currentSum = 0;
 
-        for (int i = 0; i < digits - 1; i++) {
-            int digit = (int) (Math.random() * 10);
-            accountNumber.append(digit);
-            currentSum += digit;
+        for (int i = 0; i < digits; i++) {
+            int maxPossibleDigit = Math.min(9, sum);
+            int randomDigit = random.nextInt(maxPossibleDigit + 1);
+            accountNumber.append(randomDigit);
+            sum -= randomDigit;
         }
 
-        int lastDigit = (sum - currentSum + 10) % 10; // Ensure the last digit makes the sum correct
-        accountNumber.append(lastDigit);
+        if (sum != 0) {
+            throw new Exception("Account Number can not be generated");
+        }
 
         return accountNumber.toString();
     }
